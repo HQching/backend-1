@@ -32,6 +32,20 @@ router.get("/", (request, response) => {
   );
 });
 
+router.get("/cusomter/id", (request, response) => {
+  sqlst = `select * from customer where id = ${response.query.cid}`; 
+  database.connection.all(
+    sqlst,
+    (errors, results) => {
+      if (errors) {
+        response.status(500).send("Some error occurred" + sqlst);
+      } else {
+        response.status(200).send(results);
+      }
+    }
+  );
+});
+
 // defines an API which takes id & password in the request and return success of fail
 /* router.get("/customer/login", (request, response) => {
   sqlst = `select * from customer where customer_id = ${request.query.cid} & password = ${request.query.pwd}` ; 
@@ -60,6 +74,8 @@ router.post("/customer/add", (request, response) => {
     }
   );
 });
+
+
 
 // POST + PUT = Body, GET + DELETE = Query
 router.delete("/customer/delete", (request, response) => {
