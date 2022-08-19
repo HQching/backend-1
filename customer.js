@@ -33,7 +33,7 @@ router.get("/", (request, response) => {
 });
 
 router.get("/cusomter/id", (request, response) => {
-  sqlst = `select * from customer where id = ${response.query.cid}`; 
+  sqlst = `select * from customer where customer_id = ${response.query.cid}`; 
   database.connection.all(
     sqlst,
     (errors, results) => {
@@ -62,51 +62,51 @@ router.get("/cusomter/id", (request, response) => {
 }); */
 
 // a POST API to store the record received in the request
-router.post("/customer/add", (request, response) => {
-  database.connection.all(
-    `insert into customer (customer_name, customer_email) values ('${request.body.name}','${request.body.email}')`,
-    (errors, results) => {
-      if (errors) {
-        response.status(500).send("Some error occurred");
-      } else {
-        response.status(200).send("Record saved successfully!");
-      }
-    }
-  );
-});
+// router.post("/customer/add", (request, response) => {
+//   database.connection.all(
+//     `insert into customer (customer_name, customer_email) values ('${request.body.name}','${request.body.email}')`,
+//     (errors, results) => {
+//       if (errors) {
+//         response.status(500).send("Some error occurred");
+//       } else {
+//         response.status(200).send("Record saved successfully!");
+//       }
+//     }
+//   );
+// });
 
 
 
-// POST + PUT = Body, GET + DELETE = Query
-router.delete("/customer/delete", (request, response) => {
-  database.connection.all(
-    `delete from customer where customer_id  = ${request.query.cid}`,
-    (errors, results) => {
-      if (errors) {
-        response.status(500).send("Some error occurred");
-      } else {
-        response.status(200).send("Record deleted successfully!");
-      }
-    }
-  );
-});
+// // POST + PUT = Body, GET + DELETE = Query
+// router.delete("/customer/delete", (request, response) => {
+//   database.connection.all(
+//     `delete from customer where customer_id  = ${request.query.cid}`,
+//     (errors, results) => {
+//       if (errors) {
+//         response.status(500).send("Some error occurred");
+//       } else {
+//         response.status(200).send("Record deleted successfully!");
+//       }
+//     }
+//   );
+// });
 
-// a PUT API to update email for given customer id
-router.put("/customer/change", (request, response) => {
-  sqlstmt = `UPDATE customer SET customer_email = "${request.body.cemail}"
-    WHERE customer_id  = ${request.body.cid}`;
+// // a PUT API to update email for given customer id
+// router.put("/customer/change", (request, response) => {
+//   sqlstmt = `UPDATE customer SET customer_email = "${request.body.cemail}"
+//     WHERE customer_id  = ${request.body.cid}`;
   
-  database.connection.all(
-   sqlstmt,
-    (errors, results) => {
-      if (errors) {
-        response.status(500).send("Some error occurred" + sqlstmt);
-      } else {
-        response.status(200).send("Record updated successfully!" + sqlstmt);
-      }
-    }
-  );
-});
+//   database.connection.all(
+//    sqlstmt,
+//     (errors, results) => {
+//       if (errors) {
+//         response.status(500).send("Some error occurred" + sqlstmt);
+//       } else {
+//         response.status(200).send("Record updated successfully!" + sqlstmt);
+//       }
+//     }
+//   );
+// });
 
 /* `UPDATE customer
 SET customer_email = ${request.query.cemail}
