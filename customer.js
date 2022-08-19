@@ -32,7 +32,7 @@ router.get("/", (request, response) => {
   );
 });
 
-router.get("/cusomter/id", (request, response) => {
+router.get("/customer/id", (request, response) => {
   sqlst = `select * from customer where customer_id = ${response.query.cid}`; 
   database.connection.all(
     sqlst,
